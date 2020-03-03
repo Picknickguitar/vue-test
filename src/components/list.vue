@@ -22,6 +22,11 @@
             </md-button>
           </md-list-item>
 
+          <md-field>
+            <label>Bezeichnung</label>
+            <md-input v-model="type"></md-input>
+          </md-field>
+           
         </md-list>
       </div>
     </div>
@@ -40,8 +45,13 @@ export default {
   },
   data: () => ({
     items: ["Bananas", "Spinach", "Icecream"],
-    newItem: ""
+    newItem: "",
+    type: null,
+    selectedDate: null
   }),
+  props: {
+
+  },
   methods: {
     remove(index) {
       
@@ -53,6 +63,12 @@ export default {
       this.items = newList
       
     },
+    addItem() {
+      const list = this.items
+      const newList = [...list, 'bananasss']
+      this.items = newList
+  
+    },
     editItem() {
       const list = this.items
       const newList = [...list, this.newItem]
@@ -63,11 +79,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .md-list-item-content .md-list-action {
   margin: 0;
 }
 .md-list-item-content .md-list-action:last-of-type {
   margin: 0;
+}
+.md-field label {
+  padding-left: 16px;
+}
+.md-field .md-input, .md-field .md-textarea {
+  padding: 0 16px;
 }
 
 </style>

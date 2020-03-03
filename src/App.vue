@@ -2,11 +2,11 @@
   <div id="app">
     <div class="phone-viewport">
       <md-bottom-bar class="md-accent">
-        <md-bottom-bar-item md-label="Hinzufügen" md-icon="playlist_add" @click="addItem"></md-bottom-bar-item>
+        <md-bottom-bar-item md-label="Hinzufügen" md-icon="playlist_add" @click="addItemChild"></md-bottom-bar-item>
         <md-bottom-bar-item md-label="Löschen" md-icon="delete"></md-bottom-bar-item>
       </md-bottom-bar>
     </div>
-    <List/>
+    <List ref="form"/>
   </div>
 </template>
 
@@ -18,15 +18,14 @@ export default {
    components: {
     List
   },
+  data () {
+    return {
+      itemList: []
+    }
+  },
   methods: {
-    addItem() {
-
-      console.log("funzt")
-      /*
-      const list = this.items
-      const newList = [...list, this.newItem]
-      this.items = newList
-      */
+    addItemChild () {
+      this.$refs.form.addItem()
     }
   }
 }
