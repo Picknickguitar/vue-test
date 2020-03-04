@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     addItemChild () {
-      this.$refs.form.addItem()
+      this.$refs.form.showAdd()
     }
   }
 }
