@@ -3,7 +3,7 @@
     <div class="phone-viewport">
       <md-bottom-bar class="md-accent">
         <md-bottom-bar-item md-label="Hinzufügen" md-icon="playlist_add" @click="addItemChild"></md-bottom-bar-item>
-        <md-bottom-bar-item md-label="Löschen" md-icon="delete"></md-bottom-bar-item>
+        <md-bottom-bar-item md-label="Sortieren" md-icon="sort" @click="sortList"></md-bottom-bar-item>
       </md-bottom-bar>
     </div>
     <List ref="form"/>
@@ -26,6 +26,9 @@ export default {
   methods: {
     addItemChild () {
       this.$refs.form.showAdd()
+    },
+    sortList () {
+      this.$refs.form.sortedByDate()
     }
   }
 }
