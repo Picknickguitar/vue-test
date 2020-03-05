@@ -180,12 +180,7 @@ export default {
       }
     },
     sortedByDate() {
-      this.items.sort( ( a, b) => {
-          
-          return b.date - a.date
-          
-      })
-      return this.items;
+      
     }
   }
 }
