@@ -1,4 +1,3 @@
-
 export default {
   items: [
     {name:"Bananen", menge: 5, editing: false, date: "24.02.2021"},

@@ -126,13 +126,7 @@ export default {
   methods: {
     //Item von Liste entfernen---------------------------------
     remove(index) {
-      
-      const list = this.$store.state.items
-      const newList = [
-        ...list.slice(0, index),
-        ...list.slice(index + 1, list.length)
-      ]
-      this.$store.state.items = newList
+      this.$store.commit('removeList', index)
     },
     //Zeigt Form an. Wird von Hinzufügen Button vom Menü angesteuert------------------
     showAdd() {
@@ -140,9 +134,14 @@ export default {
     },
     // Fügt Item liste hinzu---------------------------------------------
     addItem() {
-      const list = this.$store.state.items
-      const newList = [...list, {name: this.newItem, menge: this.value, editing: false, date: this.date}]
-      this.$store.state.items = newList
+      this.showDate = false
+
+      this.$store.commit({
+        type: 'addList',
+        newItem: this.newItem,
+        value: this.value,
+        date: this.date
+        })
 
       //Form Reset
       this.showAdd()
@@ -151,9 +150,7 @@ export default {
       this.date = ""
     },
     addDone(i) {
-      const list = this.$store.state.doneList
-      const newList = [{name: this.$store.state.items[i].name, menge: this.$store.state.items[i].menge, editing: false, date:this.$store.state.items[i].date}, ...list]
-      this.$store.state.doneList = newList
+      this.$store.commit('addDone', i)
 
       this.remove(i)
     },

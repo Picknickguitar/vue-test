@@ -48,15 +48,8 @@ export default {
   methods: {
     //Item von Liste entfernen---------------------------------
     remove(index) {
-      
-      const list = this.$store.state.doneList
-      const newList = [
-        ...list.slice(0, index),
-        ...list.slice(index + 1, list.length)
-      ]
-      this.$store.state.doneList = newList
+      this.$store.commit('removeDone', index)      
     },
-   
   }
 }
 </script>
