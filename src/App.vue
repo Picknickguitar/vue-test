@@ -18,6 +18,7 @@
 import List from './components/list.vue'
 import Done from './components/done.vue'
 
+
 export default {
   name: 'Home',
    components: {
@@ -62,7 +63,7 @@ body {
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  background: rgba(#000, .6);
+  background: rgba(#000, .06);
 }
 .md-ripple {
   display: flex;

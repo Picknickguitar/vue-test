@@ -80,8 +80,7 @@
               <md-button class="md-icon-button" type="submit" @click="addCancel">
                 <md-icon class="md-primary">clear</md-icon>
               </md-button>
-              
-              
+                            
             </div>
         </md-list>
       </div>
@@ -91,11 +90,11 @@
 </template>
 
 <script>
+
+
 export default {
   name: 'List',
-  components: {
-    
-  },
+  
   data: () => ({
     
     newItem: "",
@@ -124,14 +123,13 @@ export default {
         }
   },*/
   methods: {
+  //Liste bearbeiten Methoden------------------------------------------------------------
+
     //Item von Liste entfernen---------------------------------
     remove(index) {
       this.$store.commit('removeList', index)
     },
-    //Zeigt Form an. Wird von Hinzufügen Button vom Menü angesteuert------------------
-    showAdd() {
-      this.show = !this.show
-    },
+
     // Fügt Item liste hinzu---------------------------------------------
     addItem() {
       this.showDate = false
@@ -149,19 +147,25 @@ export default {
       this.value = ""
       this.date = ""
     },
+
+    //zu zuletzt verwendet list hinzufügen-------------------------------------
     addDone(i) {
       this.$store.commit('addDone', i)
 
       this.remove(i)
+    },
+
+  //Anzeige Methoden----------------------------------------------------------------------
+    //Zeigt Form an. Wird von Hinzufügen Button vom Menü angesteuert------------------
+    showAdd() {
+      this.show = !this.show
     },
     //Switch die Anzeige zu editieren um------------------------------------------
     editItem(item) {
       item.editing = false
     },
 
-    validateUser() {
-      console.log("voll valide alter")
-    },
+  //Reset methoden-------------------------------------------------------------------------
     //Wenn Editieren abegebrochen wird. Reset------------------------------------
     addCancel() {
       this.show = !this.show
@@ -173,6 +177,8 @@ export default {
     resetDate() {
       this.date = ""
     },
+
+  //Filter Input methoden---------------------------------------------------------------
     //Nur Zahlen & Punkt für Menge akzeptieren
     isNumber: function(evt) {
       evt = (evt) ? evt : window.event
