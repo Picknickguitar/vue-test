@@ -8,17 +8,21 @@
         </md-bottom-bar>
       </div>
       <List ref="form"/>
+      <md-divider></md-divider>
+      <Done class="done"/>
     </div>
   </div>
 </template>
 
 <script>
 import List from './components/list.vue'
+import Done from './components/done.vue'
 
 export default {
   name: 'Home',
    components: {
-    List
+    List,
+    Done
   },
   data () {
     return {
@@ -58,8 +62,7 @@ body {
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  border: 1px solid rgba(#000, .26);
-  background: rgba(#000, .06);
+  background: rgba(#000, .6);
 }
 .md-ripple {
   display: flex;

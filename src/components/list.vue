@@ -31,7 +31,7 @@
 
             <!--Buttons Not editing Template---------------------------------------------->
             <template v-if="!item.editing">
-              <md-button class="md-icon-button md-list-action">
+              <md-button class="md-icon-button md-list-action" @click="addDone(i)">
                 <md-icon class="md-primary">done</md-icon>
               </md-button>
               <md-button class="md-icon-button md-list-action" @click="item.editing = true">
@@ -57,12 +57,12 @@
               
                 <md-field>
                   <label>Bezeichnung</label>
-                  <md-input v-model="newItem"></md-input>
+                  <md-input v-model="newItem" :maxlength="max"></md-input>
                 </md-field>
         
                 <md-field>
                   <label>Menge</label>
-                  <md-input v-model="value" @keydown="isNumber"></md-input>
+                  <md-input v-model="value" @keydown="isNumber(e)"></md-input>
                 </md-field>
 
                 <md-field v-if="showDate">
@@ -92,25 +92,28 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'List',
   components: {
     
   },
   data: () => ({
-    items: [
-    {name:"Bananen", menge: 5, editing: false, date: "24.02.2021"},
-    {name:"Äpfel", menge: 3, editing: false, date: ""},
-    {name:"Butter", menge: 1, editing: false, date: "15.11.2020"},
-    {name:"Wasser", menge: 6, editing: false, date: ""}
-    ],
+    
     newItem: "",
     value: "",
     date: "",
-    show: false,
-    showDate: false
+  
+    show: false,            //Hinzufügen anzeigen var
+    showDate: false,        //switch anzeige var
+    e: null,                //charcode Key event var
+    max: 25                 //maximale Anzahl zeichen Bezeichnung item
   }),
-  /*
+  
   computed: {
+    items() {
+      return this.$store.state.items
+    }
+  },
+    /*
     sortedByDate: function() {
         this.items.sort( ( a, b) => {
             
@@ -121,23 +124,25 @@ export default {
         }
   },*/
   methods: {
+    //Item von Liste entfernen---------------------------------
     remove(index) {
       
-      const list = this.items
+      const list = this.$store.state.items
       const newList = [
         ...list.slice(0, index),
         ...list.slice(index + 1, list.length)
       ]
-      this.items = newList
-      
+      this.$store.state.items = newList
     },
+    //Zeigt Form an. Wird von Hinzufügen Button vom Menü angesteuert------------------
     showAdd() {
       this.show = !this.show
     },
+    // Fügt Item liste hinzu---------------------------------------------
     addItem() {
-      const list = this.items
+      const list = this.$store.state.items
       const newList = [...list, {name: this.newItem, menge: this.value, editing: false, date: this.date}]
-      this.items = newList
+      this.$store.state.items = newList
 
       //Form Reset
       this.showAdd()
@@ -145,20 +150,41 @@ export default {
       this.value = ""
       this.date = ""
     },
+    addDone(i) {
+      const list = this.$store.state.doneList
+      const newList = [{name: this.$store.state.items[i].name, menge: this.$store.state.items[i].menge, editing: false, date:this.$store.state.items[i].date}, ...list]
+      this.$store.state.doneList = newList
+
+      this.remove(i)
+    },
+    //Switch die Anzeige zu editieren um------------------------------------------
     editItem(item) {
       item.editing = false
     },
+
     validateUser() {
       console.log("voll valide alter")
     },
+    //Wenn Editieren abegebrochen wird. Reset------------------------------------
     addCancel() {
       this.show = !this.show
       this.newItem = ""
       this.value = ""
       this.date = ""
     },
+    //Extra reset für den Switch button Fälligkeitsdatum---------------------------------
     resetDate() {
       this.date = ""
+    },
+    //Nur Zahlen & Punkt für Menge akzeptieren
+    isNumber: function(evt) {
+      evt = (evt) ? evt : window.event
+      var charCode = (evt.which) ? evt.which : evt.keyCode
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 190) {
+        evt.preventDefault()
+      } else {
+        return true
+      }
     }
   }
 }
