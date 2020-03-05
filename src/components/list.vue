@@ -62,7 +62,7 @@
         
                 <md-field>
                   <label>Menge</label>
-                  <md-input v-model="value"></md-input>
+                  <md-input v-model="value" @keydown="isNumber"></md-input>
                 </md-field>
 
                 <md-field v-if="showDate">

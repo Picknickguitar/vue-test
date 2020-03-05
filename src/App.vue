@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <div class="phone-viewport">
-      <md-bottom-bar class="md-accent">
-        <md-bottom-bar-item md-label="Hinzufügen" md-icon="playlist_add" @click="addItemChild"></md-bottom-bar-item>
-        <md-bottom-bar-item md-label="Sortieren" md-icon="sort" @click="sortList"></md-bottom-bar-item>
-      </md-bottom-bar>
+    <div class="screen">
+      <div class="phone-viewport">
+        <md-bottom-bar class="md-accent">
+          <md-bottom-bar-item md-label="Hinzufügen" md-icon="playlist_add" @click="addItemChild"></md-bottom-bar-item>
+          <md-bottom-bar-item md-label="Sortieren" md-icon="sort" @click="sortList"></md-bottom-bar-item>
+        </md-bottom-bar>
+      </div>
+      <List ref="form"/>
     </div>
-    <List ref="form"/>
   </div>
 </template>
 
@@ -46,10 +48,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  justify-content: center;
 }
-.phone-viewport {
+.screen {
   width: 100vw;
-  
+}
+.phone-viewport {  
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -60,5 +65,12 @@ body {
   display: flex;
   justify-content: center;
   overflow: hidden;
+}
+
+@media only screen and (min-width: 1200px) {
+ 
+  .screen {
+  width: 65vw;
+  }
 }
 </style>
