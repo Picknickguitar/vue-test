@@ -9,7 +9,7 @@
       </div>
       <List ref="form"/>
       <md-divider></md-divider>
-      <Done class="done"/>
+      <Done class="done" v-if="emptyDone > 0"/>
     </div>
   </div>
 </template>
@@ -28,6 +28,11 @@ export default {
   data () {
     return {
       itemList: []
+    }
+  },
+  computed: {
+    emptyDone() {
+      return this.$store.getters.doneEmpty
     }
   },
   methods: {

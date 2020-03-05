@@ -67,7 +67,7 @@
 
                 <md-field v-if="showDate">
                   <label>Fälligkeitsdatum</label>
-                  <md-input v-model="date" ></md-input>
+                  <md-input v-model="date" @keydown="isNumber(e)"></md-input>
                 </md-field>
 
               </div>
@@ -112,16 +112,6 @@ export default {
       return this.$store.state.items
     }
   },
-    /*
-    sortedByDate: function() {
-        this.items.sort( ( a, b) => {
-            
-            return new Date(a.date) - new Date(b.date);
-            
-        });
-        return this.items;
-        }
-  },*/
   methods: {
   //Liste bearbeiten Methoden------------------------------------------------------------
 
@@ -188,6 +178,14 @@ export default {
       } else {
         return true
       }
+    },
+    sortedByDate() {
+      this.items.sort( ( a, b) => {
+          
+          return b.date - a.date
+          
+      })
+      return this.items;
     }
   }
 }
