@@ -9,6 +9,11 @@ export default {
     const newList = [{name: state.items[i].name, menge: state.items[i].menge, editing: false, date: state.items[i].date}, ...list]
     state.doneList = newList
   },
+  addBack (state, i) {
+    const itemsList = state.items
+    const newList = [...itemsList, {name: state.doneList[i].name, menge: state.doneList[i].menge, editing: false, date: state.doneList[i].date}]
+    state.items = newList
+  },
   removeList (state, index) {
     
     const list = state.items

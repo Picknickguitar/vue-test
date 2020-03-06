@@ -16,7 +16,7 @@
 
             <!--Buttons Template---------------------------------------------->
             <template >
-              <md-button class="md-icon-button md-list-action">
+              <md-button class="md-icon-button md-list-action" @click="addList(i)">
                 <md-icon class="md-primary">reply</md-icon>
               </md-button>
               <md-button class="md-icon-button md-list-action" @click="remove(i)">
@@ -50,6 +50,11 @@ export default {
     remove(index) {
       this.$store.commit('removeDone', index)      
     },
+    addList(index) {
+      this.$store.commit('addBack', index)
+
+      this.remove(index)
+    }
   }
 }
 </script>
