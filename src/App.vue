@@ -25,23 +25,22 @@ export default {
     List,
     Done
   },
-  data () {
-    return {
-      itemList: []
-    }
-  },
+  data: () => ({
+    sortListBool: false
+  }),
   computed: {
     emptyDone() {
       return this.$store.getters.doneEmpty
-    }
+    }   
   },
   methods: {
     addItemChild () {
       this.$refs.form.showAdd()
     },
     sortList () {
-      this.$refs.form.sortedByDate()
-    }
+      this.$refs.form.sortListByDate()
+    } 
+        
   }
 }
 </script>
