@@ -57,17 +57,17 @@
               
                 <md-field>
                   <label>Bezeichnung</label>
-                  <md-input v-model="newItem" :maxlength="max"></md-input>
+                  <md-input v-model="newItem" :maxlength="maxName"></md-input>
                 </md-field>
         
                 <md-field>
                   <label>Menge</label>
-                  <md-input v-model="value" @keydown="isNumber(e)"></md-input>
+                  <md-input v-model="value" @keydown="isNumber(e)" :maxlength="maxValue"></md-input>
                 </md-field>
 
                 <md-field v-if="showDate">
                   <label>Fälligkeitsdatum</label>
-                  <md-input v-model="date" @keydown="isNumber(e)"></md-input>
+                  <md-input v-model="date" @keydown="isNumber(e)" :maxlength="maxDate"></md-input>
                 </md-field>
 
               </div>
@@ -101,10 +101,13 @@ export default {
     value: "",
     date: "",
   
-    show: false,            //Hinzufügen anzeigen var
-    showDate: false,        //switch anzeige var
-    e: null,                //charcode Key event var
-    max: 25                 //maximale Anzahl zeichen Bezeichnung item
+    show: false,                //Hinzufügen anzeigen var
+    showDate: false,            //switch anzeige var
+    e: null,                    //charcode Key event var
+    maxName: 25,                //maximale Anzahl zeichen Bezeichnung item
+    maxValue: 6,                //maximale Anzahl zeichen Menge
+    maxDate: 10                 //maximale Anzahl zeichen Date
+
   }),
   
   computed: {
