@@ -106,17 +106,13 @@ export default {
     e: null,                    //charcode Key event var
     maxName: 25,                //maximale Anzahl zeichen Bezeichnung item
     maxValue: 6,                //maximale Anzahl zeichen Menge
-    maxDate: 10,                 //maximale Anzahl zeichen Date
-    bool: false
+    maxDate: 10                 //maximale Anzahl zeichen Date
+    
   }),
   computed: {
     items() {
-      if(this.bool) {
-        return this.$store.getters.sortedByDate
-      }else{
-        console.log(this.bool)
-        return this.$store.state.items
-      }
+      return this.$store.state.items
+      
     }
   },
   methods: {
@@ -187,7 +183,7 @@ export default {
       }
     },
     sortListByDate() {
-      this.bool = !this.bool
+      console.log("sortieren")
     } 
   }
 }
