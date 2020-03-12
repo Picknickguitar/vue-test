@@ -38,22 +38,37 @@ export default {
     
   },
   data: () => ({
-      
+      doneList: [],
   }),
-  computed: {
-    doneList() {
-      return this.$store.state.doneList
+  mounted() {
+    if (localStorage.getItem('doneList')) {
+      try {
+        this.doneList = JSON.parse(localStorage.getItem('doneList'));
+      } catch(e) {
+        console.log("error")
+        localStorage.removeItem('doneList');
+      }
     }
   },
   methods: {
     //Item von Liste entfernen---------------------------------
     remove(index) {
-      this.$store.commit('removeDone', index)      
+      this.doneList.splice(index, 1)
+      this.saveDoneList()      
     },
-    addList(index) {
-      this.$store.commit('addBack', index)
+    addList(i) {
+      this.items.push({id: this.doneList[i].id, name: this.doneList[i].name, menge: this.doneList[i].menge, editing: false, date: this.doneList[i].date})
+      this.saveItems()
 
-      this.remove(index)
+      this.remove(i)
+    },
+    saveDoneList() {
+      const parsed = JSON.stringify(this.doneList)
+      localStorage.setItem('doneList', parsed)
+    },
+    saveItems() {
+      const parsed = JSON.stringify(this.items)
+      localStorage.setItem('items', parsed)
     }
   }
 }

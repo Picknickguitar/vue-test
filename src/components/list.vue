@@ -96,10 +96,12 @@ export default {
   name: 'List',
   
   data: () => ({
-    
+    items: [],
+    doneList: [],
     newItem: "",
     value: "",
     date: "",
+    id: 0,
   
     show: false,                //Hinzufügen anzeigen var
     showDate: false,            //switch anzeige var
@@ -109,10 +111,13 @@ export default {
     maxDate: 10                 //maximale Anzahl zeichen Date
     
   }),
-  computed: {
-    items() {
-      return this.$store.state.items
-      
+  mounted() {
+    if (localStorage.getItem('items')) {
+      try {
+        this.items = JSON.parse(localStorage.getItem('items'));
+      } catch(e) {
+        localStorage.removeItem('items');
+      }
     }
   },
   methods: {
@@ -120,19 +125,25 @@ export default {
 
     //Item von Liste entfernen---------------------------------
     remove(index) {
-      this.$store.commit('removeList', index)
+      this.items.splice(index, 1)
+      this.saveItems()
+      this.id--
     },
-
+    saveItems() {
+      const parsedI = JSON.stringify(this.items)
+      localStorage.setItem('items', parsedI)
+    },
+    saveDoneList() {
+      const parsedD = JSON.stringify(this.doneList)
+      localStorage.setItem('doneList', parsedD)
+    },
     // Fügt Item liste hinzu---------------------------------------------
     addItem() {
-      this.showDate = false
+      this.showDate = false                     //showdate zurücksetzen
 
-      this.$store.commit({
-        type: 'addList',
-        newItem: this.newItem,
-        value: this.value,
-        date: this.date
-        })
+      this.items.push({id: this.id, name: this.newItem, menge: this.value, editing: false, date: this.date})
+      this.saveItems()
+      this.id++
 
       //Form Reset
       this.showAdd()
@@ -143,8 +154,10 @@ export default {
 
     //zu zuletzt verwendet list hinzufügen-------------------------------------
     addDone(i) {
-      this.$store.commit('addDone', i)
+      this.doneList.push({id: this.items[i].id, name: this.items[i].name, menge: this.items[i].menge, editing: this.editing, date: this.items[i].date})
 
+      localStorage.setItem('doneListLength', this.doneList.length)
+      this.saveDoneList()
       this.remove(i)
     },
 

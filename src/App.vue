@@ -30,7 +30,8 @@ export default {
   }),
   computed: {
     emptyDone() {
-      return this.$store.getters.doneEmpty
+      console.log("drin")
+      return localStorage.getItem('doneListLength')
     }   
   },
   methods: {
